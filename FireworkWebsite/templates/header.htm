@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Sri Karthiga Traders</title>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-<INTEGRITY_HASH>" crossorigin="anonymous" />
+
+
+        </head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+            * {
+            margin: 0;
+            padding: 0;
+            transition: 0.5s;
+            font-size: 16px;
+            
+        }
+
+
+        a{
+            color:white !important;
+            
+        }
+        
+        .titleName{
+            text-decoration: none;
+            border: 0px  !important;
+        }
+        .navextra{
+            background-color: rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 4px 6px 4px rgba(0, 0, 0, 0.2);
+        }
+        a:hover{
+            color: rgb(0, 144, 0) !important;
+            border-bottom: 2px solid rgb(0, 144, 0) !important;
+            
+            
+        }
+        .titleName:hover{
+            border: 0px solid rgba(0, 0, 0, 0.2)  !important;
+        }
+        .title{
+            text-shadow:5px 5px 5px rgba(88, 88, 88, 0.2) !important;
+
+        }
+        table{
+            background-color:rgba(0, 0, 0, 0.2) !important;
+            
+        }
+        table:hover{
+            box-shadow: 4px 4px 4px black !important;
+
+        }
+        input{
+            background-color: rgba(0, 0, 0, 0.2) !important;
+            border: rgba(196, 196, 196, 0.2) !important;
+            color: white !important;
+        }
+        h5{
+            text-decoration: underline;
+        }
+        textarea{
+            background-color: rgba(0, 0, 0, 0.2) !important;
+            border: none !important;
+            color: white !important;
+        }
+        input:hover,textarea:hover,input:focus,textarea:focus{
+
+            box-shadow: 4px 4px 4px black !important;
+            transition: 1s;
+         }
+        input::placeholder,textarea::placeholder{
+        color: white !important;  
+        }
+        .btnbg{
+            background-color: rgb(0, 199, 206) !important;
+        }
+    </style>
+
+    <body >
+        {% block content %}
+
+
+        {% endblock %}
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+    <script>
+var totalAmount = 0;
+const total = document.querySelector(".total");
+
+document.addEventListener('input', function(event) {
+    if (event.target.id === 'inp') {
+        console.log("hfekjfjk");
+        const quantity = parseInt(event.target.value, 10);
+        const price = parseInt(event.target.dataset.price, 10);
+
+        // Check if quantity is a valid number
+        if (!isNaN(quantity)) {
+            const amount = quantity * price;
+
+            const amountCell = event.target.closest('tr').querySelector('.amount');
+            amountCell.textContent = 'Rs.' + amount.toFixed(2);
+
+            // Update the total amount
+            updateTotal();
+        } else {
+            // If quantity is not a valid number, display default or empty value
+            const amountCell = event.target.closest('tr').querySelector('.amount');
+            amountCell.textContent = ''; // or 'Rs.0.00' if you want a default value
+
+            // Update the total amount
+            updateTotal();
+        }
+    }
+});
+
+function updateTotal() {
+    const amountCells = document.querySelectorAll('.amount');
+    totalAmount = 0;
+
+    amountCells.forEach(function(amountCell) {
+        const amount = parseFloat(amountCell.textContent.replace('Rs.', '').trim()) || 0;
+        totalAmount += amount;
+    });
+
+    total.innerHTML = 'Total: Rs.' + totalAmount.toFixed(2);
+}
+
+// Function to send data to the server using AJAX
+// Function to send data to the server using AJAX
+// Function to send data to the server using AJAX
+function sendOrderDataToServer() {
+    var rowsData = [];
+
+    const cusName=document.querySelector("#customername").value
+    const cusEmail=document.querySelector("#customeremail").value
+    const cusContact=document.querySelector("#customercontact").value
+
+    var customerDetail = {
+        name: cusName,
+        email: cusEmail,
+        contact: cusContact
+    };
+
+    console.log(customerDetail)
+
+    // Collect data from each row
+    document.querySelectorAll('tbody tr').forEach(function(row) {
+        var nameElement = row.querySelector('td:first-child');
+        var quantityInput = row.querySelector('.quantity-input');
+        var amountCell = row.querySelector('.amount');
+        
+
+        // Check if all required elements are found
+        if (nameElement && quantityInput && amountCell) {
+            var name = nameElement.textContent.trim();
+            var quantity = parseInt(quantityInput.value, 10);
+            var amount = parseFloat(amountCell.textContent.replace('Rs.', '').trim()) || 0;
+
+            // Only add rows with non-zero quantity
+            if (!isNaN(quantity) && quantity > 0) {
+                rowsData.push({ name: name, quantity: quantity, amount: amount });
+            }
+        }
+    });
+
+
+    // AJAX request to send data to the server
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "{% url 'mail' %}", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                console.log('Data sent successfully:', xhr.responseText);
+            } else {
+                console.error('Error sending data:', xhr.status, xhr.statusText);
+            }
+        }
+    };
+
+    xhr.send(JSON.stringify({ rows: rowsData,detail:customerDetail}));
+}
+
+
+
+// Example: Trigger the function when a button is clicked
+document.getElementById('orderBtn').addEventListener('click', function() {
+    console.log("Button clicked")
+    sendOrderDataToServer();
+});
+
+
+
+
+</script>
+
+</html>

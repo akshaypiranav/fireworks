@@ -1,0 +1,119 @@
+{% extends "header.htm" %}
+{% load static %}
+{% block content %}
+
+
+{% include "navbar.htm" %}
+
+<section class="container  " style="margin-top: 210px;margin-bottom: 220px;" id="home">
+    <h1 class="display-1 text-white text-center title">SRI KARTHIGA TRADERS</h1>
+    <h1 class="text-center text-white" style="font-weight: lighter;">Firecrackers illuminate the sky, each explosion echoing celebration. In their brilliance, we find transient beauty, reminding us to cherish moments, embrace joy, and savor the fleeting magic of life.</h1>
+</section>
+
+<section class="container mb-5" id="products">
+  
+    <h1 class="display-4 text-center text-white mb-3">OUR PRODUCTS{{data.name}}</h1>
+  <div style="overflow-x: auto;">
+    <table class="table table-dark text-center table-striped table-hover border border-white rounded" style="margin-bottom: 100px !important;" >
+
+        <thead>
+          <tr>
+            <th scope="col">IMAGE</th>
+            <th scope="col">PRICE</th>
+            <th scope="col">QTY</th>
+            <th scope="col">AMOUNT</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% if data %}
+          {% for i in data %}
+          <tr style="">
+            <td scope="row"><img src="{% static 'image/facebook.jpg' %}" alt="" class="" width="50" height="50"><br>{{i.name | title}}</td>
+            <td style="vertical-align: middle !important;"><strike style="color: red;">Rs.{{i.oldprice}}</strike><br><strong style="color: rgb(0, 167, 0);">Rs.{{i.price}}</strong></td>
+            <td style="vertical-align: middle !important;"><input  type="number"   data-price="{{ i.price }}" name="quantity"  id="inp" class="quantity-input"  placeholder="Qty" id="" style="max-width: 60px !important;"></td>
+            <td class="amount" style="vertical-align: middle !important;"></td>
+
+          </tr>
+          {% endfor %}
+          {% endif %}
+          <tr>
+            <td colspan="4"><input type="text" placeholder="Enter Customer Name" name="" id="customername" class="form form-control"></td>
+          </tr>
+          <tr>
+            <td colspan="4"><input type="text" placeholder="Enter Customer Email" name="" id="customeremail" class="form form-control"></td>
+          </tr>
+          <tr>
+            <td colspan="4"><input type="text" placeholder="Enter Customer Contact" name="" id="customercontact" class="form form-control"></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-center"><button id="orderBtn" class="btn btn-primary">ORDER PRODUCTS</button></td>
+            <td colspan="2"><strong class="total" style="color: rgb(0, 123, 20);"></strong></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+</section>
+
+<div class="container text-center border border-white rounded col-md-6 col-sm-6 col-lg-6 col-xs-2 my-5" id="contact">
+    <h1 class="display-4 my-3 text-white">CONTACT US</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Enter Your Email" class="form form-control my-3" id="">
+        <input type="tel" name="mobile" placeholder="Enter Your Contact Number" class="form form-control my-3" id="">
+        <textarea name="message" id="" cols="4" rows="4" class="form form-control my-3" placeholder="Enter your Message"></textarea>
+        <input type="submit" value="Request for a Call" class="btn btnbg my-3">
+
+
+
+    </form>
+
+</div>
+
+    <div class="p-5" id="location">
+    <h1 class="display-4 text-center text-white">OUR LOCATION</h1>
+    <iframe class="w-100 rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31493.35526451137!2d77.89360340073362!3d9.362493955602018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b06cab35e82e151%3A0xf98da1715aa9374b!2sSattur%2C%20Tamil%20Nadu%20626203!5e0!3m2!1sen!2sin!4v1704114040422!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+<div class="container text-white   " id="term">
+  <h1 class="display-4 text-center text-white">TERMS & CONDITIONS</h1>
+  <ul style="display: grid;justify-content: left;">
+    <h5>Shipping/Transportation</h5>
+    <li>No door delivery</li>
+    <li>Transportation charges extra</li>
+    <li>Shipping of goods soley depends on the transporter</li>
+    <h5>Delivery time</h5>
+    <li>Tamilnadu - 2 Days</li>
+    <li>Rest of Tamilnadu - 10 Days</li>
+    <h5>Booking value</h5>
+    <li>Tax</li>
+    <li>Prices are inclusive of GST</li>
+    <h5>Modification Terms</h5>
+    <li>Due to nature of Firework Industry, the products are subject to modification</li>
+    <li>If the items you ordered are not available at the time of billing/packing  some other product of the same or more value will be sent instead of the unavailable item</li>
+    <h5>Other items</h5>
+    <li>E. & O.E</li>
+    <li>Agree you are 18 years & above</li>
+    <li>Subject to Sattur jurisdiction</li>
+  </ul>
+</div>
+
+    <h1 class="display-4 text-center text-white" id="follow">FOLLOW US ON</h1>
+<section class="container col-12  p-2  ">
+
+       <span style="display: grid;justify-content: center;align-items: center;"> <img src="{% static 'image/instagram.jpg' %}" width="350" height="250" class=" rounded" alt="">
+       <br> <img src="{% static 'image/facebook.jpg' %}" width="350" height="250"  class=" rounded" alt=""></span>
+
+
+
+
+</section>
+
+<div class="conatiner" style="visibility: hidden;">hh</div>
+
+{% endblock %}
+
+
+
